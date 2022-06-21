@@ -1,4 +1,4 @@
-## The official code for "EfficientNeRF: Efficient Neural Radiance Fields" in CVPR2022.
+## The official code for "[EfficientNeRF: Efficient Neural Radiance Fields](https://openaccess.thecvf.com/content/CVPR2022/html/Hu_EfficientNeRF__Efficient_Neural_Radiance_Fields_CVPR_2022_paper.html)" in CVPR2022.
 
 ### Environment (Tested)
 - Ubuntu 18.04
