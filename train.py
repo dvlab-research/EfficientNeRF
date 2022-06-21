@@ -569,9 +569,8 @@ class EfficientNeRFSystem(LightningModule):
             img = results[f'rgb_{typ}'].view(H, W, 3).cpu()
             img = img.permute(2, 0, 1) # (3, H, W)
             img_gt = rgbs.view(H, W, 3).permute(2, 0, 1).cpu() # (3, H, W)
-            depth = visualize_depth(results[f'depth_{typ}'].view(H, W)) # (3, H, W)
-            stack = torch.stack([img_gt, img, depth]) # (3, 3, H, W)
-            self.logger.experiment.add_images('val/GT_Pred_Depth',
+            stack = torch.stack([img_gt, img]) # (3, 3, H, W)
+            self.logger.experiment.add_images('val/gt_pred',
                                                stack, self.global_step)
             
             img_path = os.path.join(f'logs/{hparams.exp_name}', f'epoch_{self.current_epoch}.png')

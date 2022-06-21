@@ -17,8 +17,8 @@ $ pip install -r requirements.txt
 
 ### Training
 ```
-DATA_DIR=/path/to/lego
-python train.py \
+$ DATA_DIR=/path/to/lego
+$ python train.py \
    --dataset_name blender \
    --root_dir $DATA_DIR \
    --N_samples 128 \
@@ -31,6 +31,11 @@ python train.py \
    --sigma_init 30.0 \
    --weight_threashold 1e-5 \
    --exp_name lego_coarse128_fine5_V384
+```
+
+### Visualization
+```
+$ tensorboard --logdir=./logs
 ```
 
 ### Question
