@@ -35,9 +35,11 @@ python train.py \
 
 ### Question
 Q1. Different hyperparameters from the original paper
+
 A1. There are many combinations between these hyperparameters. You are free to balance the training speed and accuracy by modify them. 
 
 Q2. When will NeRF-Tree released?
+
 A2. Hard to say a specific date. We have applied it to our products. The data structure NeRF-Tree is closed to Octree.
 
 ### Citation
