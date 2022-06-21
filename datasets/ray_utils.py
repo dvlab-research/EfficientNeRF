@@ -29,20 +29,18 @@ def get_rays(directions, c2w):
     Get ray origin and normalized directions in world coordinate for all pixels in one image.
     Reference: https://www.scratchapixel.com/lessons/3d-basic-rendering/
                ray-tracing-generating-camera-rays/standard-coordinate-systems
-
     Inputs:
         directions: (H, W, 3) precomputed ray directions in camera coordinate
         c2w: (3, 4) transformation matrix from camera coordinate to world coordinate
-
     Outputs:
         rays_o: (H*W, 3), the origin of the rays in world coordinate
         rays_d: (H*W, 3), the normalized direction of the rays in world coordinate
     """
     # Rotate ray directions from camera coordinate to the world coordinate
-    rays_d = directions @ c2w[:, :3].T # (H, W, 3)
-    rays_d = rays_d / torch.norm(rays_d, dim=-1, keepdim=True)
+    rays_d = directions @ c2w[:3, :3].T  # (H, W, 3)
+    # rays_d = rays_d / torch.norm(rays_d, dim=-1, keepdim=True)
     # The origin of all rays is the camera origin in world coordinate
-    rays_o = c2w[:, 3].expand(rays_d.shape) # (H, W, 3)
+    rays_o = c2w[:3, 3].expand(rays_d.shape)  # (H, W, 3)
 
     rays_d = rays_d.view(-1, 3)
     rays_o = rays_o.view(-1, 3)
@@ -52,19 +50,19 @@ def get_rays(directions, c2w):
 
 def get_ndc_rays(H, W, focal, near, rays_o, rays_d):
     # Shift ray origins to near plane
-    t = -(near + rays_o[...,2]) / rays_d[...,2]
-    rays_o = rays_o + t[...,None] * rays_d
-    
-    # Projection
-    o0 = -1./(W/(2.*focal)) * rays_o[...,0] / rays_o[...,2]
-    o1 = -1./(H/(2.*focal)) * rays_o[...,1] / rays_o[...,2]
-    o2 = 1. + 2. * near / rays_o[...,2]
+    t = -(near + rays_o[..., 2]) / rays_d[..., 2]
+    rays_o = rays_o + t[..., None] * rays_d
 
-    d0 = -1./(W/(2.*focal)) * (rays_d[...,0]/rays_d[...,2] - rays_o[...,0]/rays_o[...,2])
-    d1 = -1./(H/(2.*focal)) * (rays_d[...,1]/rays_d[...,2] - rays_o[...,1]/rays_o[...,2])
-    d2 = -2. * near / rays_o[...,2]
-    
-    rays_o = torch.stack([o0,o1,o2], -1)
-    rays_d = torch.stack([d0,d1,d2], -1)
-    
+    # Projection
+    o0 = -1. / (W / (2. * focal)) * rays_o[..., 0] / rays_o[..., 2]
+    o1 = -1. / (H / (2. * focal)) * rays_o[..., 1] / rays_o[..., 2]
+    o2 = 1. + 2. * near / rays_o[..., 2]
+
+    d0 = -1. / (W / (2. * focal)) * (rays_d[..., 0] / rays_d[..., 2] - rays_o[..., 0] / rays_o[..., 2])
+    d1 = -1. / (H / (2. * focal)) * (rays_d[..., 1] / rays_d[..., 2] - rays_o[..., 1] / rays_o[..., 2])
+    d2 = -2. * near / rays_o[..., 2]
+
+    rays_o = torch.stack([o0, o1, o2], -1)
+    rays_d = torch.stack([d0, d1, d2], -1)
+
     return rays_o, rays_d

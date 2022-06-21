@@ -40,7 +40,10 @@ A1. There are many combinations between these hyperparameters. You are free to b
 
 Q2. When will NeRF-Tree released?
 
-A2. Hard to say a specific date. We have applied it to our products. The data structure NeRF-Tree is closed to Octree.
+A2. Hard to say a specific date. The data structure NeRF-Tree is closed to Octree.
+
+### Progress
+More scenes and applications will be suported soon. Stay tune!
 
 ### Citation
 ```

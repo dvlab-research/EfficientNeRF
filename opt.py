@@ -42,7 +42,7 @@ def get_opts():
     parser.add_argument('--prefixes_to_ignore', nargs='+', type=str, default=['loss'],
                         help='the prefixes to ignore in the checkpoint state dict')
 
-    parser.add_argument('--optimizer', type=str, default='adam',
+    parser.add_argument('--optimizer', type=str, default='radam',
                         help='optimizer type',
                         choices=['sgd', 'adam', 'radam', 'ranger', 'adamw'])
     parser.add_argument('--lr', type=float, default=5e-4,

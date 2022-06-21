@@ -65,6 +65,8 @@ class BlenderDataset(Dataset):
         # ray directions for all pixels, same for all images (same H, W, focal)
         self.directions = \
             get_ray_directions(h, w, self.focal) # (h, w, 3)
+        
+        self.directions = self.directions / torch.norm(self.directions, dim=-1, keepdim=True)
             
         if self.split == 'train': # create buffer of all rays and rgb data
             self.image_paths = []
