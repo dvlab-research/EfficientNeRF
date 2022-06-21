@@ -263,7 +263,7 @@ class EfficientNeRFSystem(LightningModule):
             if white_back:
                 rgb_final = rgb_final + 1-weights_sum.unsqueeze(-1)
 
-            return rgb_final, depth_final, weights, sigmas, shs, alphas
+            return rgb_final, depth_final, weights, sigmas, shs
 
         # Extract models from lists
         model_coarse = models[0]
@@ -306,13 +306,12 @@ class EfficientNeRFSystem(LightningModule):
                     # or else, treat points whose density > 0 as valid samples
                     idx_render_coarse = torch.nonzero(sigmas > 0.0).detach()
 
-            rgb_coarse, depth_coarse, weights_coarse, sigmas_coarse, _, alphas_coarse = \
+            rgb_coarse, depth_coarse, weights_coarse, sigmas_coarse, _ = \
                 inference(model_coarse, embedding_xyz, xyz_sampled_coarse, rays_d,
                         dir_embedded, z_vals_coarse, idx_render_coarse)
             result['rgb_coarse'] = rgb_coarse
             result['z_vals_coarse'] = self.z_vals_coarse
             result['depth_coarse'] = depth_coarse
-            result['alpha_coarse'] = alphas_coarse
             result['sigma_coarse'] = sigmas_coarse
             result['weight_coarse'] = weights_coarse
             result['opacity_coarse'] = weights_coarse.sum(1)
@@ -343,8 +342,8 @@ class EfficientNeRFSystem(LightningModule):
         idx_render_fine[..., 1] = idx_render[..., 1] * scale + (torch.arange(scale, device=device)).reshape(1, scale)
         idx_render_fine = idx_render_fine.reshape(-1, 2)
 
-        if idx_render_fine.shape[0] > N_rays * 100:
-            indices = torch.randperm(idx_render_fine.shape[0])[:N_rays * 100]
+        if idx_render_fine.shape[0] > N_rays * 64:
+            indices = torch.randperm(idx_render_fine.shape[0])[:N_rays * 64]
             idx_render_fine = idx_render_fine[indices]
         
         xyz_sampled_fine = rays_o.unsqueeze(1) + \
@@ -356,7 +355,7 @@ class EfficientNeRFSystem(LightningModule):
         #     xyz_sampled_fine = xyz_norm * self.xyz_scope + self.xyz_min
 
         model_fine = models[1]
-        rgb_fine, depth_fine, _, sigmas_fine, shs_fine, alphas_fine = \
+        rgb_fine, depth_fine, _, sigmas_fine, shs_fine = \
             inference(model_fine, embedding_xyz, xyz_sampled_fine, rays_d,
                     dir_embedded, z_vals_fine, idx_render_fine)
         
@@ -369,7 +368,6 @@ class EfficientNeRFSystem(LightningModule):
 
         result['rgb_fine'] = rgb_fine
         result['depth_fine'] = depth_fine
-        result['alpha_fine'] = alphas_fine
         result['num_samples_fine'] = torch.FloatTensor([idx_render_fine.shape[0] / N_rays])
 
         return result
