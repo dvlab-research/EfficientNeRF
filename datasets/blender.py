@@ -89,7 +89,7 @@ class BlenderDataset(Dataset):
                 self.all_rgbs += [img]
                 
                 rays_o, rays_d = get_rays(self.directions, c2w) # both (h*w, 3)
-
+                rays_d = rays_d / torch.norm(rays_d, dim=-1, keepdim=True)
                 self.all_rays += [torch.cat([rays_o, rays_d], 
                                              1)] # (h*w, 8)
 
@@ -140,6 +140,7 @@ class BlenderDataset(Dataset):
         elif self.split == 'val':
             c2w = torch.FloatTensor(self.pose_vis[idx])[:3, :4]
             rays_o, rays_d = get_rays(self.directions, c2w)
+            rays_d = rays_d / torch.norm(rays_d, dim=-1, keepdim=True)
             rays = torch.cat([rays_o, rays_d], 1) # (H*W, 8)
 
             sample = {'rays': rays}
