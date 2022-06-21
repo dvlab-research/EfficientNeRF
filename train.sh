@@ -16,4 +16,4 @@ python train.py \
    --warmup_step 5000\
    --sigma_init 30.0 \
    --weight_threashold 1e-5 \
-   --exp_name lego_coarse128_fine5_V384_init30_softplus_wt
+   --exp_name lego_coarse128_fine5_V384

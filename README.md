@@ -27,8 +27,9 @@ python train.py \
    --optimizer radam --lr 2e-3 \
    --lr_scheduler poly \
    --coord_scope 3.0 \
-   --sigma_default -10.0 \
-   --weight_threashold 1e-4 \
+   --warmup_step 5000\
+   --sigma_init 30.0 \
+   --weight_threashold 1e-5 \
    --exp_name lego_coarse128_fine5_V384
 ```
 
