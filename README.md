@@ -48,7 +48,7 @@ $ tensorboard --logdir=./logs
 More scenes and applications will be suported soon. Stay tune!
 
 ### Acknowledgement
-Our initial code is borrow from 
+Our initial code was borrowed from 
 - [nerf-pl:https://github.com/kwea123/nerf_pl](https://github.com/kwea123/nerf_pl)
 - [TensoRF: https://github.com/apchenstu/TensoRF](https://github.com/apchenstu/TensoRF)
 
