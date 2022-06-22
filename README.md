@@ -50,8 +50,6 @@ More scenes and applications will be suported soon. Stay tune!
 ### Acknowledgement
 Our initial code was borrowed from 
 - [nerf-pl:https://github.com/kwea123/nerf_pl](https://github.com/kwea123/nerf_pl)
-- [TensoRF: https://github.com/apchenstu/TensoRF](https://github.com/apchenstu/TensoRF)
-
 
 ### Citation
 If you find our code or paper helps, please cite our paper:
