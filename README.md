@@ -1,4 +1,4 @@
-## The official code for "[EfficientNeRF: Efficient Neural Radiance Fields](https://openaccess.thecvf.com/content/CVPR2022/html/Hu_EfficientNeRF__Efficient_Neural_Radiance_Fields_CVPR_2022_paper.html)" in CVPR2022.
+## The official code for "[EfficientNeRF: Efficient Neural Radiance Fields](https://arxiv.org/abs/2206.00878)" in CVPR2022.
 
 ### Environment (Tested)
 - Ubuntu 18.04
@@ -39,18 +39,22 @@ $ tensorboard --logdir=./logs
 ```
 
 ### Question
-Q1. Different hyperparameters from the original paper
-
-A1. There are many combinations between these hyperparameters. You are free to balance the training speed and accuracy by modify them. 
-
-Q2. When will NeRF-Tree released?
-
-A2. Hard to say a specific date. The data structure NeRF-Tree is closed to Octree.
+- Q1. Different hyperparameters from the original paper
+* A1. There are many combinations between these hyperparameters. You are free to balance the training speed and accuracy by modify them. 
+- Q2. When will NeRF-Tree released?
+* A2. Hard to say a specific date. The data structure NeRF-Tree is closed to Octree.
 
 ### Progress
 More scenes and applications will be suported soon. Stay tune!
 
+### Acknowledgement
+Our initial code is borrow from 
+- [nerf-pl:https://github.com/kwea123/nerf_pl](https://github.com/kwea123/nerf_pl)
+- [TensoRF: https://github.com/apchenstu/TensoRF](https://github.com/apchenstu/TensoRF)
+
+
 ### Citation
+If you find our code or paper helps, please cite our paper:
 ```
 @InProceedings{Hu_2022_CVPR,
     author    = {Hu, Tao and Liu, Shu and Chen, Yilun and Shen, Tiancheng and Jia, Jiaya},
