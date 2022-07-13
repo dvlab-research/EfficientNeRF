@@ -4,7 +4,7 @@ matplotlib
 pytorch-lightning==1.6.4
 setuptools==59.5.0
 test_tube
-pillow==8.0.1
+pillow==9.0.1
 imageio==2.19.3
 imageio-ffmpeg
 tensorboard
